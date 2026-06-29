@@ -1,5 +1,5 @@
 // console.log("Hello World");
-let humanScore = 0, computerScore = 0, rounds=0;
+let humanScore = 0, computerScore = 0, rounds = 0;
 function getComputerChoice() {
     let num = Math.floor(Math.random() * 10);
     if (num % 3 == 0) return "Rock";
@@ -54,9 +54,16 @@ function playGame() {
         result.textContent = "The game is tied!";
     }
 }
+function resetGame() {
+    humanScore = 0;
+    computerScore = 0;
+    rounds = 0;
 
-const buttons = document.querySelectorAll("button");
-const result=document.querySelector(".result");
+    result.textContent = "Choose Rock, Paper or Scissors to start!";
+}
+const buttons = document.querySelectorAll(".choice");
+const result = document.querySelector(".result");
+const resetButton = document.querySelector("#reset");
 buttons.forEach(button => {
     button.addEventListener("click", () => {
         const humanChoice = button.textContent;
@@ -66,13 +73,30 @@ buttons.forEach(button => {
         console.log("Human:", humanScore);
         console.log("Computer:", computerScore);
         rounds++;
-        if (humanScore===5||computerScore===5) {
+        if (humanScore === 5 || computerScore === 5) {
             playGame();
+            // resetButton.style.display = "block";
+            // resetGame();
+            // resetButton.style.display = "none"; // Hide
+            resetButton.style.display = "block";
+
+            buttons.forEach(button => {
+                button.disabled = true;
+            });
 
         }
     });
 });
 
+resetButton.addEventListener("click", () => {
+    resetGame();
+
+    buttons.forEach(button => {
+        button.disabled = false;
+    });
+
+    resetButton.style.display = "none";
+});
 
 
 
