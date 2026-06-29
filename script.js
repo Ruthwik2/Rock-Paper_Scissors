@@ -1,5 +1,5 @@
 // console.log("Hello World");
-let humanScore = 0, computerScore = 0;
+let humanScore = 0, computerScore = 0, rounds=0;
 function getComputerChoice() {
     let num = Math.floor(Math.random() * 10);
     if (num % 3 == 0) return "Rock";
@@ -7,9 +7,6 @@ function getComputerChoice() {
     else return "Scissors";
 }
 
-function getHumanChoice() {
-    return prompt("Enter your choice for Rock,Paper,Scissors");
-}
 
 function playRound(humanChoice, computerChoice) {
     let human_choice = humanChoice.toLowerCase();
@@ -47,13 +44,36 @@ function playGame() {
     console.log("Human:", humanScore);
     console.log("Computer:", computerScore);
     if (humanScore > computerScore) {
-        console.log("You won the game!");
+        result.textContent = "You won the game!";
     } else if (humanScore < computerScore) {
-        console.log("Computer won the game!");
+        // console.log("Computer won the game!");
+        result.textContent = "Computer won the game!";
+
     } else {
-        console.log("The game is tied!");
+        // console.log("The game is tied!");
+        result.textContent = "The game is tied!";
     }
 }
 
-playGame();
+const buttons = document.querySelectorAll("button");
+const result=document.querySelector(".result");
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+        const humanChoice = button.textContent;
+        const computerChoice = getComputerChoice();
+        playRound(humanChoice, computerChoice);
+        result.textContent = `Human: ${humanScore} | Computer: ${computerScore}`;
+        console.log("Human:", humanScore);
+        console.log("Computer:", computerScore);
+        rounds++;
+        if (humanScore===5||computerScore===5) {
+            playGame();
+
+        }
+    });
+});
+
+
+
+
 
